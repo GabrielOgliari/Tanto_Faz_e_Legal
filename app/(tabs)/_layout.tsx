@@ -30,10 +30,10 @@ export default function TabLayout() {
         options={{
           title: 'Minhas Tarefas',
           tabBarIcon: ({ color, focused }) => (
-            <IconSymbol 
-              size={focused ? 30 : 26} 
-              name={focused ? "checklist" : "list.bullet"} 
-              color={color} 
+            <IconSymbol
+              size={focused ? 30 : 26}
+              name={focused ? "checklist" : "list.bullet"}
+              color={color}
             />
           ),
         }}
@@ -43,10 +43,10 @@ export default function TabLayout() {
         options={{
           title: 'Nova Tarefa',
           tabBarIcon: ({ color, focused }) => (
-            <IconSymbol 
-              size={focused ? 32 : 28} 
-              name={focused ? "plus.circle.fill" : "plus.circle"} 
-              color={color} 
+            <IconSymbol
+              size={focused ? 32 : 28}
+              name={focused ? "plus.circle.fill" : "plus.circle"}
+              color={color}
             />
           ),
         }}

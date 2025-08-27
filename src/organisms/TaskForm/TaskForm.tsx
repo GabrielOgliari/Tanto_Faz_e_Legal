@@ -4,7 +4,7 @@ import { PrioritySelector } from '@/src/molecules';
 import { CreateTaskData, TaskPriority } from '@/src/types';
 import React, { useState } from 'react';
 import { Alert, StyleSheet } from 'react-native';
-
+import ConfettiCannon from 'react-native-confetti-cannon';
 export interface TaskFormProps {
   onSubmit: (taskData: CreateTaskData) => Promise<void>;
   onSuccess?: () => void;
@@ -16,6 +16,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({
   onSuccess,
   isLoading = false,
 }) => {
+  const [confettiActive, setConfettiActive] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState<TaskPriority>('média');
@@ -23,12 +24,21 @@ export const TaskForm: React.FC<TaskFormProps> = ({
 
   const validateForm = (): boolean => {
     setTitleError('');
-    
+
+
+
     if (!title.trim()) {
       setTitleError('O título da tarefa é obrigatório!');
       return false;
     }
-    
+    if (title.trim().toLowerCase() === "Estudar Matematica".toLowerCase()) {
+      setConfettiActive(true);
+      setTimeout(() => {
+        setConfettiActive(false);
+      }, 5000);
+      return false;
+    }
+
     return true;
   };
 
@@ -44,11 +54,10 @@ export const TaskForm: React.FC<TaskFormProps> = ({
         priority,
       });
 
-      // Limpar formulário após sucesso
       setTitle('');
       setDescription('');
       setPriority('média');
-      
+
       onSuccess?.();
     } catch (error) {
       console.error('Erro ao criar tarefa:', error);
@@ -64,7 +73,9 @@ export const TaskForm: React.FC<TaskFormProps> = ({
   };
 
   return (
+
     <ThemedView style={styles.container}>
+
       <Input
         label="Título *"
         value={title}
@@ -97,7 +108,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({
           onPress={handleClear}
           style={styles.clearButton}
         />
-        
+
         <Button
           title={isLoading ? 'Criando...' : 'Criar Tarefa'}
           variant="primary"
@@ -106,6 +117,15 @@ export const TaskForm: React.FC<TaskFormProps> = ({
           style={styles.submitButton}
         />
       </ThemedView>
+      {confettiActive && (
+        <ConfettiCannon
+          count={300}
+          origin={{ x: 500, y: 400 }}
+          explosionSpeed={200}
+          fallSpeed={4000}
+          fadeOut
+        />
+      )}
     </ThemedView>
   );
 };
