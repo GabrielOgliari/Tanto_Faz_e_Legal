@@ -25,7 +25,6 @@ export const TaskForm: React.FC<TaskFormProps> = ({
   const validateForm = (): boolean => {
     setTitleError('');
 
-    console.log("Valor do título digitado:", title);
 
 
     if (!title.trim()) {
