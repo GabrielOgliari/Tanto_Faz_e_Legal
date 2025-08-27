@@ -61,6 +61,7 @@ export const useTasks = () => {
       completed: false,
       createdAt: new Date().toISOString(),
       priority: taskData.priority,
+      completeAt: ''
     };
 
     setTasks(prevTasks => {
@@ -88,7 +89,7 @@ export const useTasks = () => {
   const toggleTaskCompletion = async (taskId: string): Promise<void> => {
     setTasks(prevTasks =>
       prevTasks.map(task =>
-        task.id === taskId ? { ...task, completed: !task.completed } : task
+        task.id === taskId ? { ...task, completed: !task.completed, completeAt: new Date().toISOString() } : task
       )
     );
   };
