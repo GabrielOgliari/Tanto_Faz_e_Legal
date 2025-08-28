@@ -1,14 +1,11 @@
-import React from "react";
-import { StyleSheet, Linking, View, ScrollView } from "react-native";
-import Constants from "expo-constants";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { PageTemplate } from "@/src/templates";
-import { useColorScheme } from "@/hooks/useColorScheme";
+import Constants from "expo-constants";
+import React from "react";
+import { Linking, ScrollView, StyleSheet, View } from "react-native";
 
 export const AboutScreen: React.FC = () => {
-  const colorScheme = useColorScheme();
-
   return (
     <PageTemplate title="" scrollable keyboardAvoiding>
       <ThemedView style={styles.header}>
@@ -33,18 +30,13 @@ export const AboutScreen: React.FC = () => {
             Contato: irineu@unochapeco.edu.br
           </ThemedText>
 
-          <ThemedText style={styles.text}>
-            <div>
-              <p>Desenvolvedores:</p>
-              <ul>
-                <li>Evandro Weissheimer</li>
-                <li>Rafael Krämer da Silva</li>
-                <li>Gabriel Ogliari Roncato</li>
-                <li>Vitor Matheus Squina</li>
-                <li>Luiz Felipe Trindade</li>
-              </ul>
-            </div>
-          </ThemedText>
+          <ThemedText style={styles.text}>Desenvolvedores:</ThemedText>
+          <ThemedText style={styles.text}>Evandro Weissheimer</ThemedText>
+          <ThemedText style={styles.text}>Rafael Krämer da Silva</ThemedText>
+          <ThemedText style={styles.text}>Gabriel Ogliari Roncato</ThemedText>
+          <ThemedText style={styles.text}>Vitor Matheus Squina</ThemedText>
+          <ThemedText style={styles.text}>Luiz Felipe Trindade</ThemedText>
+          <ThemedText style={styles.text}>Vítor Franz Dalberto</ThemedText>
 
           <ThemedText
             type="link"
@@ -117,7 +109,7 @@ const styles = StyleSheet.create({
   version: {
     fontSize: 14,
     color: "#999",
-    textAlign: "center", // Centraliza a versão
-    marginTop: 32, // Adicionando um espaço visual
+    textAlign: "center",
+    marginTop: 32,
   },
 });
