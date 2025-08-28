@@ -7,6 +7,7 @@ import {
   ScrollView,
   StyleSheet,
 } from "react-native";
+import { useThemeColor } from "@/hooks/useThemeColor"; // Importa o hook
 
 export interface PageTemplateProps {
   title: string;
@@ -23,8 +24,11 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
   scrollable = false,
   keyboardAvoiding = false,
 }) => {
+  // Pega a cor do tema
+  const backgroundColor = useThemeColor({}, "background");
+
   const content = (
-    <ThemedView style={styles.container}>
+    <ThemedView style={[styles.container, { backgroundColor }]}>
       <ThemedView style={styles.header}>
         <ThemedText type="title">{title}</ThemedText>
         {subtitle && (
@@ -39,12 +43,12 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
   if (keyboardAvoiding) {
     return (
       <KeyboardAvoidingView
-        style={styles.keyboardContainer}
+        style={[styles.keyboardContainer, { backgroundColor }]}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         {scrollable ? (
           <ScrollView
-            style={styles.scrollView}
+            style={[styles.scrollView, { backgroundColor }]}
             contentContainerStyle={styles.scrollContent}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
@@ -59,7 +63,10 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
   }
 
   return scrollable ? (
-    <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={[styles.scrollView, { backgroundColor }]}
+      showsVerticalScrollIndicator={false}
+    >
       {content}
     </ScrollView>
   ) : (
@@ -70,15 +77,12 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
 const styles = StyleSheet.create({
   keyboardContainer: {
     flex: 1,
-    backgroundColor: "#151718",
   },
   scrollView: {
     flex: 1,
-    backgroundColor: "#151718",
   },
   container: {
     flex: 1,
-    backgroundColor: "#151718",
     paddingTop: 60,
   },
   header: {
