@@ -1,5 +1,6 @@
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { useThemeColor } from "@/hooks/useThemeColor";
 import { Button } from "@/src/atoms";
 import { useAuthContext } from "@/src/hooks/AuthContext";
 import React from "react";
@@ -26,9 +27,10 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
   keyboardAvoiding = false,
 }) => {
   const { logout } = useAuthContext();
+  const backgroundColor = useThemeColor({}, "background");
 
   const content = (
-    <ThemedView style={styles.container}>
+    <ThemedView style={[styles.container, { backgroundColor }]}>
       <ThemedView style={styles.header}>
         <ThemedView>
           <ThemedText type="title">{title}</ThemedText>
@@ -52,12 +54,12 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
   if (keyboardAvoiding) {
     return (
       <KeyboardAvoidingView
-        style={styles.keyboardContainer}
+        style={[styles.keyboardContainer, { backgroundColor }]}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         {scrollable ? (
           <ScrollView
-            style={styles.scrollView}
+            style={[styles.scrollView, { backgroundColor }]}
             contentContainerStyle={styles.scrollContent}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
@@ -72,7 +74,10 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
   }
 
   return scrollable ? (
-    <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={[styles.scrollView, { backgroundColor }]}
+      showsVerticalScrollIndicator={false}
+    >
       {content}
     </ScrollView>
   ) : (
@@ -83,15 +88,12 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
 const styles = StyleSheet.create({
   keyboardContainer: {
     flex: 1,
-    backgroundColor: "#ffffff",
   },
   scrollView: {
     flex: 1,
-    backgroundColor: "#ffffff",
   },
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
     paddingTop: 60,
   },
   header: {
@@ -114,6 +116,6 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingBottom: 100, // Espaço extra para evitar sobreposição com tabs
+    paddingBottom: 100,
   },
 });
