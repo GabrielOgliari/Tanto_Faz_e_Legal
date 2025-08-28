@@ -1,7 +1,12 @@
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import React from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from 'react-native';
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import React from "react";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+} from "react-native";
 
 export interface PageTemplateProps {
   title: string;
@@ -26,22 +31,20 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
           <ThemedText style={styles.subtitle}>{subtitle}</ThemedText>
         )}
       </ThemedView>
-      
-      <ThemedView style={styles.content}>
-        {children}
-      </ThemedView>
+
+      <ThemedView style={styles.content}>{children}</ThemedView>
     </ThemedView>
   );
 
   if (keyboardAvoiding) {
     return (
-      <KeyboardAvoidingView 
-        style={styles.keyboardContainer} 
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      <KeyboardAvoidingView
+        style={styles.keyboardContainer}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         {scrollable ? (
-          <ScrollView 
-            style={styles.scrollView} 
+          <ScrollView
+            style={styles.scrollView}
             contentContainerStyle={styles.scrollContent}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
@@ -56,10 +59,7 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
   }
 
   return scrollable ? (
-    <ScrollView 
-      style={styles.scrollView} 
-      showsVerticalScrollIndicator={false}
-    >
+    <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
       {content}
     </ScrollView>
   ) : (
@@ -70,15 +70,15 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
 const styles = StyleSheet.create({
   keyboardContainer: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: "#151718",
   },
   scrollView: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: "#151718",
   },
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: "#151718",
     paddingTop: 60,
   },
   header: {
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 16,
-    color: '#666',
+    color: "#666",
     marginTop: 4,
   },
   content: {
