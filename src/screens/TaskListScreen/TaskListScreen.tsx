@@ -1,8 +1,9 @@
-import { useTaskContext } from '@/src/hooks';
-import { TaskList } from '@/src/organisms';
-import { PageTemplate } from '@/src/templates';
-import { useFocusEffect } from 'expo-router';
-import React, { useCallback } from 'react';
+import { useTaskContext } from "@/src/hooks";
+import { ClickCounter } from "@/src/atoms";
+import { TaskList } from "@/src/organisms";
+import { PageTemplate } from "@/src/templates";
+import { useFocusEffect } from "expo-router";
+import React, { useCallback } from "react";
 
 export const TaskListScreen: React.FC = () => {
   const {
@@ -22,12 +23,13 @@ export const TaskListScreen: React.FC = () => {
   );
 
   const stats = getTaskStats();
-  
+
   return (
     <PageTemplate
       title="Minhas Tarefas"
       subtitle={`${stats.pending} pendentes de ${stats.total}`}
     >
+      <ClickCounter />
       <TaskList
         tasks={tasks}
         refreshing={refreshing}
