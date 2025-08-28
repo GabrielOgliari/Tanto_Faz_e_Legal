@@ -1,5 +1,8 @@
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { useThemeColor } from "@/hooks/useThemeColor";
+import { Button } from "@/src/atoms";
+import { useAuthContext } from "@/src/hooks/AuthContext";
 import React from "react";
 import {
   KeyboardAvoidingView,
@@ -7,7 +10,6 @@ import {
   ScrollView,
   StyleSheet,
 } from "react-native";
-import { useThemeColor } from "@/hooks/useThemeColor"; // Importa o hook
 
 export interface PageTemplateProps {
   title: string;
@@ -24,16 +26,25 @@ export const PageTemplate: React.FC<PageTemplateProps> = ({
   scrollable = false,
   keyboardAvoiding = false,
 }) => {
-  // Pega a cor do tema
+  const { logout } = useAuthContext();
   const backgroundColor = useThemeColor({}, "background");
 
   const content = (
     <ThemedView style={[styles.container, { backgroundColor }]}>
       <ThemedView style={styles.header}>
-        <ThemedText type="title">{title}</ThemedText>
-        {subtitle && (
-          <ThemedText style={styles.subtitle}>{subtitle}</ThemedText>
-        )}
+        <ThemedView>
+          <ThemedText type="title">{title}</ThemedText>
+          {subtitle && (
+            <ThemedText style={styles.subtitle}>{subtitle}</ThemedText>
+          )}
+        </ThemedView>
+
+        <Button
+          title="Sair"
+          variant="secondary"
+          onPress={logout}
+          style={styles.logoutButton}
+        />
       </ThemedView>
 
       <ThemedView style={styles.content}>{children}</ThemedView>
@@ -86,8 +97,14 @@ const styles = StyleSheet.create({
     paddingTop: 60,
   },
   header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingHorizontal: 20,
     marginBottom: 24,
+  },
+  logoutButton: {
+    width: 80,
+    height: 60,
   },
   subtitle: {
     fontSize: 16,
@@ -99,6 +116,6 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingBottom: 100, // Espaço extra para evitar sobreposição com tabs
+    paddingBottom: 100,
   },
 });
